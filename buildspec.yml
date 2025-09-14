@@ -9,7 +9,7 @@ phases:
       - echo "Building Spring Boot WAR for Elastic Beanstalk..."
       - mvn clean package -DskipTests
       - mkdir -p deploy
-      - cp target/*.war deploy/ROOT.war
+      - cp target/*.war ROOT.war
       - cd deploy && zip -r ../app.zip . && cd ..
 artifacts:
   files:
