@@ -6,25 +6,22 @@ phases:
       java: corretto17
     commands:
       - echo "Installing zip package..."
-      - yum install -y zip
+      - yum install -y zip unzip
 
   build:
     commands:
       - echo "Building Spring Boot WAR for Elastic Beanstalk..."
       - mvn clean package -DskipTests
 
-      # Create deploy folder
-      - mkdir -p deploy
+      # Copy WAR as ROOT.war at top level
+      - cp target/*.war ROOT.war
 
-      # Copy WAR as ROOT.war (Elastic Beanstalk expects ROOT.war at top level)
-      - cp target/*.war deploy/ROOT.war
-
-      # Optional: verify WAR contents (JSP files)
+      # Optional: verify JSPs exist in WAR
       - echo "Listing JSP files in WAR for verification:"
-      - unzip -l deploy/ROOT.war | grep ".jsp" || echo "No JSP files found in WAR"
+      - unzip -l ROOT.war | grep ".jsp" || echo "No JSP files found in WAR"
 
-      # Zip the deploy folder
-      - cd deploy && zip -r ../app.zip . && cd ..
+      # Zip the WAR at top level
+      - zip app.zip ROOT.war
 
 artifacts:
   files:
