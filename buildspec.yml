@@ -1,4 +1,4 @@
-version: 0.2
+version: 0.3
 
 phases:
   install:
@@ -7,11 +7,32 @@ phases:
     commands:
       - echo "Installing zip..."
       - yum install -y zip
+
+  pre_build:
+    commands:
+      - echo "🔧 Pre-build: Fixing JSP folder structure..."
+      - mkdir -p src/main/webapp/WEB-INF/views
+      - echo "🔧 Moving JSPs (if they exist in resources/templates or resources/views)..."
+      - |
+        for SRC_DIR in src/main/resources/templates src/main/resources/views; do
+          if [ -d "$SRC_DIR" ]; then
+            for JSP in "$SRC_DIR"/*.jsp; do
+              [ -f "$JSP" ] && mv -f "$JSP" src/main/webapp/WEB-INF/views/
+            done
+          fi
+        done
+      - echo "✅ JSP files moved to src/main/webapp/WEB-INF/views/"
+
   build:
     commands:
-      - echo "Building WAR for Elastic Beanstalk..."
+      - echo "🔧 Building WAR..."
       - mvn clean package -DskipTests
-      - zip app.zip target/ROOT.war
+      - echo "🔧 Preparing deploy package..."
+      - mkdir -p deploy
+      - cp target/*.war deploy/ROOT.war
+      - cd deploy && zip -r ../app.zip . && cd ..
+      - echo "✅ app.zip ready for Elastic Beanstalk"
+
 artifacts:
   files:
     - app.zip
