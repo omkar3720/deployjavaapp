@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" 
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                             https://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
 
@@ -9,7 +10,7 @@
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
     <version>3.5.4</version>
-    <relativePath/> <!-- lookup parent from repository -->
+    <relativePath/>
   </parent>
 
   <groupId>com.cjc</groupId>
@@ -17,15 +18,14 @@
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
   <name>SpringAppForAws</name>
-  <description>Demo project for Spring Boot with JSP on AWS Elastic Beanstalk</description>
+  <description>Spring Boot WAR with JSP for AWS Elastic Beanstalk</description>
 
   <properties>
     <java.version>17</java.version>
   </properties>
 
   <dependencies>
-
-    <!-- Spring Web Starter excluding embedded Tomcat -->
+    <!-- Spring Web Starter (exclude embedded Tomcat) -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
@@ -37,40 +37,40 @@
       </exclusions>
     </dependency>
 
-    <!-- Add Tomcat as provided (because Beanstalk provides the container) -->
+    <!-- Tomcat provided by EB -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-tomcat</artifactId>
       <scope>provided</scope>
     </dependency>
 
-    <!-- JSTL API -->
+    <!-- JSTL for JSP -->
     <dependency>
       <groupId>jakarta.servlet.jsp.jstl</groupId>
       <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+      <version>2.0.0</version>
     </dependency>
-
-    <!-- JSTL Implementation -->
     <dependency>
       <groupId>org.glassfish.web</groupId>
       <artifactId>jakarta.servlet.jsp.jstl</artifactId>
+      <version>2.0.0</version>
     </dependency>
 
-    <!-- JSP compilation support -->
+    <!-- JSP Compilation support -->
     <dependency>
       <groupId>org.apache.tomcat</groupId>
       <artifactId>tomcat-jasper</artifactId>
-      <version>10.1.24</version> <!-- Compatible with Spring Boot 3.x -->
+      <version>10.1.24</version>
     </dependency>
 
-    <!-- Servlet API provided by external Tomcat -->
+    <!-- Servlet API (provided by Tomcat) -->
     <dependency>
       <groupId>jakarta.servlet</groupId>
       <artifactId>jakarta.servlet-api</artifactId>
       <scope>provided</scope>
     </dependency>
 
-    <!-- Spring Boot Test (optional for unit testing) -->
+    <!-- Test -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
@@ -81,10 +81,13 @@
 
   <build>
     <plugins>
+      <!-- Spring Boot plugin for WAR packaging -->
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
-        
+        <configuration>
+          <finalName>ROOT</finalName> <!-- Ensures WAR is ROOT.war -->
+        </configuration>
       </plugin>
     </plugins>
   </build>
