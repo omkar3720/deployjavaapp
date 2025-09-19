@@ -19,8 +19,6 @@
 
     <properties>
         <java.version>17</java.version>
-        <cargo.version>1.9.10</cargo.version>
-        <tomcat.version>10.1.46</tomcat.version>
     </properties>
 
     <dependencies>
@@ -57,7 +55,7 @@
         <dependency>
             <groupId>org.apache.tomcat</groupId>
             <artifactId>tomcat-jasper</artifactId>
-            <version>${tomcat.version}</version>
+            <version>10.1.24</version>
             <scope>provided</scope>
         </dependency>
 
@@ -93,38 +91,7 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
-
-            <!-- Cargo Plugin for Tomcat Deployment -->
-            <plugin>
-                <groupId>org.codehaus.cargo</groupId>
-                <artifactId>cargo-maven2-plugin</artifactId>
-                <version>${cargo.version}</version>
-                <configuration>
-                    <container>
-                        <containerId>tomcat10x</containerId>
-                        <type>remote</type>
-                    </container>
-                    <configuration>
-                        <type>runtime</type>
-                        <properties>
-                            <cargo.remote.username>admin</cargo.remote.username>
-                            <cargo.remote.password>admin</cargo.remote.password>
-                            <cargo.remote.url>http://localhost:8080/manager/text</cargo.remote.url>
-                        </properties>
-                    </configuration>
-                    <deployables>
-                        <deployable>
-                            <groupId>${project.groupId}</groupId>
-                            <artifactId>${project.artifactId}</artifactId>
-                            <type>war</type>
-                            <properties>
-                                <context>SpringAppForAws</context>
-                            </properties>
-                        </deployable>
-                    </deployables>
-                </configuration>
-            </plugin>
-
         </plugins>
     </build>
+
 </project>
