@@ -76,7 +76,7 @@
   </dependencies>
 
   <build>
-    <finalName>ROOT</finalName> <!-- deploys app at '/' -->
+
     <plugins>
       <plugin>
         <groupId>org.springframework.boot</groupId>
@@ -90,25 +90,7 @@
           <failOnMissingWebXml>false</failOnMissingWebXml>
         </configuration>
       </plugin>
-             <plugin>
-  <groupId>org.codehaus.cargo</groupId>
-  <artifactId>cargo-maven3-plugin</artifactId>
-  <version>1.10.11</version>
-  <configuration>
-    <container>
-      <containerId>tomcat10x</containerId>
-      <type>remote</type>
-    </container>
-    <configuration>
-      <type>runtime</type>
-      <properties>
-        <cargo.remote.uri>http://localhost:8080/manager/text</cargo.remote.uri>
-        <cargo.remote.username>Omkar</cargo.remote.username>
-        <cargo.remote.password>Omkar@123</cargo.remote.password>
-      </properties>
-    </configuration>
-  </configuration>
-</plugin>
+
 
     </plugins>
   </build>
