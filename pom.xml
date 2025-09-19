@@ -20,7 +20,7 @@
     <properties>
         <java.version>17</java.version>
         <cargo.version>1.9.10</cargo.version>
-        <tomcat.version>10.1.24</tomcat.version>
+        <tomcat.version>10.1.46</tomcat.version>
     </properties>
 
     <dependencies>
