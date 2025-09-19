@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Login Page 19/09/25</title>
+<title>Login Page</title>
 <style type="text/css">
     body {
         background-color: #f0f2f5;
@@ -77,7 +77,7 @@
 </head>
 <body>
    <div class="login-container">
-      <h2>Login Here</h2>
+      <h2>Login Here 19/09/25</h2>
       <form action="login">
          <label for="username">Username:</label>
          <input type="text" id="username" name="username" placeholder="Enter Username" required>
